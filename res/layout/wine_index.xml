@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="8dp"
+    android:orientation="vertical"
+     >   
+    
+    <TextView
+        android:id="@+id/txt_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="name"
+        android:textSize="18sp" />
+    
+    <TextView 
+        android:id="@+id/txt_varietal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="varietal"
+        />
+    
+    <TextView 
+        android:id="@+id/txt_region"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="region"
+        />
+    
+    <TextView 
+        android:id="@+id/txt_vintage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="vintage"
+        />
+    
+    <TextView 
+        android:id="@+id/txt_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="profile"
+        />
+    
+    <TextView 
+        android:id="@+id/txt_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="color"
+        />
+    
+    <TextView 
+        android:id="@+id/txt_alcohol_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="alcohol_content"
+        />
+    
+    <TextView 
+        android:id="@+id/txt_rating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:text="rating"
+        />
+
+</LinearLayout>

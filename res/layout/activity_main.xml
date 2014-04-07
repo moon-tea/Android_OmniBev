@@ -6,7 +6,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity" 
+    android:layout_weight="1">
 
     <Button
         android:id="@+id/btn_download"
@@ -15,10 +16,16 @@
         android:text="Download" />
     
     <ListView 
-        android:id="@+id/list_stocks"
+        android:id="@+id/user_index"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/btn_download"/>
+     
+     <ListView 
+        android:id="@+id/wine_index"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/user_index"/>
     
     <ProgressBar 
         android:id="@+id/progress"

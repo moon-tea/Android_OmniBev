@@ -18,14 +18,18 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 
 	private View mDownloadButton;
-
-	private FetchDataTask mDownloadTask;
-
-	private ListView mListView;
-
-	private ArrayList<User> mStockList = new ArrayList<User>();
-
-	private StockListAdapter mAdapter;
+	private FetchUserTask uDownloadTask;
+	private FetchWineTask wDownloadTask;
+	
+	private ListView uListView;
+	private ListView wListView;
+	 //private ListView mListView;
+	
+	private ArrayList<User> mUserList = new ArrayList<User>();
+	private ArrayList<Wine> mWineList = new ArrayList<Wine>();
+	
+	private UserListAdapter uAdapter;
+	private WineListAdapter wAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +44,17 @@ public class MainActivity extends Activity {
 			}
 		});
 
-
-		mListView = (ListView)findViewById(R.id.list_stocks);
-		mAdapter = new StockListAdapter(this, mStockList);
-		mListView.setAdapter(mAdapter);
+		//get views		
+		uListView = (ListView)findViewById(R.id.user_index);
+		wListView = (ListView)findViewById(R.id.wine_index);
+		//set default views
+		uAdapter = new UserListAdapter(this, mUserList);
+		wAdapter = new WineListAdapter(this, mWineList);
+		
+		//set views based on data
+		uListView.setAdapter(uAdapter);
+		wListView.setAdapter(wAdapter);
+		
 	}
 
 	@Override
@@ -56,25 +67,46 @@ public class MainActivity extends Activity {
 	}
 
 	protected void startDownload() {
-		// http://finance.yahoo.com/d/quotes?s=AAPL+GOOG+MSFT&format=csv
+		// http://android.montenichols.com/public/
 
-		if (mDownloadTask == null) {
-			mDownloadTask = new FetchDataTask() {
+		if (uDownloadTask == null) {
+			uDownloadTask = new FetchUserTask() {
 
 				@Override
 				protected void onPostExecute(List<User> result) {
 					super.onPostExecute(result);
-					mStockList.clear();
-					mStockList.addAll(result);
-					mAdapter.notifyDataSetChanged();
-					mDownloadTask = null;
+					mUserList.clear();
+					mUserList.addAll(result);
+					uAdapter.notifyDataSetChanged();
+					uAdapter.notifyDataSetChanged();
+					uDownloadTask = null;
 					mDownloadButton.setEnabled(true);
 					findViewById(R.id.progress).setVisibility(View.GONE);
 				}
 			};
 			mDownloadButton.setEnabled(false);
 			findViewById(R.id.progress).setVisibility(View.VISIBLE);
-			mDownloadTask.execute("http://http://android.montenichols.com/public/");
+			uDownloadTask.execute("http://android.montenichols.com/public/");
+		}
+		
+		if (wDownloadTask == null) {
+			wDownloadTask = new FetchWineTask() {
+
+				@Override
+				protected void onPostExecute(List<Wine> result) {
+					super.onPostExecute(result);
+					mWineList.clear();
+					mWineList.addAll(result);
+					wAdapter.notifyDataSetChanged();
+					wAdapter.notifyDataSetChanged();
+					wDownloadTask = null;
+					mDownloadButton.setEnabled(true);
+					findViewById(R.id.progress).setVisibility(View.GONE);
+				}
+			};
+			mDownloadButton.setEnabled(false);
+			findViewById(R.id.progress).setVisibility(View.VISIBLE);
+			wDownloadTask.execute("http://android.montenichols.com/public/");
 		}
 	}
 
@@ -85,25 +117,66 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	private class UserListAdapter extends ArrayAdapter<User> {
 
-	private class StockListAdapter extends ArrayAdapter<User> {
-
-		public StockListAdapter(Context context, List<User> list) {
+		public UserListAdapter(Context context, List<User> list) {
 			super(context, 0, list);
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			LayoutInflater inflater = LayoutInflater.from(getContext());
-			View view = inflater.inflate(R.layout.item_stock, parent, false);
+			View view = inflater.inflate(R.layout.user_index, parent, false);
 
 			User User = getItem(position);
 
-			TextView textView = (TextView)view.findViewById(R.id.txt_stock_symbol);
+			TextView textView = (TextView)view.findViewById(R.id.txt_user_name);
 			textView.setText(User.username);
 
-			textView = (TextView)view.findViewById(R.id.txt_stock_quote);
-			textView.setText(User.privs);
+			textView = (TextView)view.findViewById(R.id.txt_user_id);
+			textView.setText("id: " + User.id);
+
+			return view;
+		}
+
+	}
+	
+	private class WineListAdapter extends ArrayAdapter<Wine> {
+
+		public WineListAdapter(Context context, List<Wine> list) {
+			super(context, 0, list);
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			LayoutInflater inflater = LayoutInflater.from(getContext());
+			View view = inflater.inflate(R.layout.wine_index, parent, false);
+
+			Wine Wine = getItem(position);
+
+			TextView textView = (TextView)view.findViewById(R.id.txt_name);
+			textView.setText(Wine.name);
+
+			textView = (TextView)view.findViewById(R.id.txt_varietal);
+			textView.setText("Varietal: " + Wine.varietal);
+			
+			textView = (TextView)view.findViewById(R.id.txt_region);
+			textView.setText("Regions: " + Wine.region);
+			
+			textView = (TextView)view.findViewById(R.id.txt_vintage);
+			textView.setText("Vintage: " + Wine.vintage);
+			
+			textView = (TextView)view.findViewById(R.id.txt_profile);
+			textView.setText("Profile: " + Wine.profile);
+			
+			textView = (TextView)view.findViewById(R.id.txt_color);
+			textView.setText("Color: " + Wine.color);
+			
+			textView = (TextView)view.findViewById(R.id.txt_alcohol_content);
+			textView.setText("Alcohol Content: " + Wine.alcohol_content);
+			
+			textView = (TextView)view.findViewById(R.id.txt_rating);
+			textView.setText("User Rating: " + Wine.rating);		
 
 			return view;
 		}
