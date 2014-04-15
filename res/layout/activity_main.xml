@@ -15,11 +15,11 @@
         android:layout_height="wrap_content"
         android:text="Download" />
     
-    <ListView 
+    <ListView
         android:id="@+id/user_index"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/btn_download"/>
+        android:layout_below="@+id/btn_create_wine" />
      
      <ListView 
         android:id="@+id/wine_index"
@@ -33,5 +33,13 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btn_create_wine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/user_index"
+        android:layout_below="@+id/btn_download"
+        android:text="Create Wine" />
 
 </RelativeLayout>

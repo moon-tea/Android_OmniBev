@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 
 	private View mDownloadButton;
+	private View mNewWineButton;
 	private FetchUserTask uDownloadTask;
 	private FetchWineTask wDownloadTask;
 	
@@ -37,12 +39,24 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		mDownloadButton = findViewById(R.id.btn_download);
+		mNewWineButton = findViewById(R.id.btn_create_wine);
 		mDownloadButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				startDownload();
 			}
 		});
+		
+		// create wine button event
+		mNewWineButton.setOnClickListener(new View.OnClickListener() { 
+            @Override
+            public void onClick(View v) {
+                // Launching create new product activity
+                Intent i = new Intent(getApplicationContext(), CreateWineActivity.class);
+                startActivity(i);
+ 
+            }
+        });
 
 		//get views		
 		uListView = (ListView)findViewById(R.id.user_index);
