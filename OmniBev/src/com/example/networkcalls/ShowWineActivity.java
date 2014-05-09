@@ -1,5 +1,8 @@
 package com.example.networkcalls;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +17,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -23,6 +27,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.graphics.PorterDuff;
 
 public class ShowWineActivity extends Activity {
@@ -39,7 +44,7 @@ public class ShowWineActivity extends Activity {
 	 //private ListView mListView;
 	
 	private ArrayList<Wine> mWineList = new ArrayList<Wine>();
-	String deleteName;
+	String deleteId;
 	
 	// url to delete wine
     private static String url_delete_wine = 
@@ -54,7 +59,7 @@ public class ShowWineActivity extends Activity {
 		mDeleteButton = findViewById(R.id.btnDeleteWine);
 		mDeleteButton.getBackground().setColorFilter(0xFFFF0000, PorterDuff.Mode.MULTIPLY);
 		mStoreButton = findViewById(R.id.btnCreateWine);
-		deleteName = getIntent().getStringExtra("name");
+		deleteId = getIntent().getStringExtra("id");
 		
 		mDeleteButton.setOnClickListener(new OnClickListener() {
 			@Override
@@ -76,7 +81,7 @@ public class ShowWineActivity extends Activity {
                 startActivity(i); 
             }
         });
-		
+		String id = getIntent().getStringExtra("id");
 		String name = getIntent().getStringExtra("name");
 		String varietal = getIntent().getStringExtra("varietal");
 		String region = getIntent().getStringExtra("region");
@@ -122,7 +127,7 @@ public class ShowWineActivity extends Activity {
 		//		}
 	}
 
-	protected void startDownload() {
+	/*protected void startDownload() {
 		// http://android.montenichols.com/public/
 				
 		if (wDownloadTask == null) {
@@ -142,7 +147,29 @@ public class ShowWineActivity extends Activity {
 			//mDownloadButton.setEnabled(false);
 			wDownloadTask.execute("http://android.montenichols.com/wine/index");
 		}
-	}
+	}*/
+	
+	/*protected void startStore() {
+		// http://android.montenichols.com/public/wine/update/{id}
+				
+		if (wDownloadTask == null) {
+			wDownloadTask = new FetchWineTask() {
+
+				@Override
+				protected void onPostExecute(List<Wine> result) {
+					super.onPostExecute(result);
+					mWineList.clear();
+					mWineList.addAll(result);
+					//wAdapter.notifyDataSetChanged();
+					//wAdapter.notifyDataSetChanged();
+					wDownloadTask = null;
+					//mDownloadButton.setEnabled(true);
+					}
+			};
+			//mDownloadButton.setEnabled(false);
+			wDownloadTask.execute("http://android.montenichols.com/wine/index");
+		}
+	}*/
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -152,7 +179,7 @@ public class ShowWineActivity extends Activity {
 	}
 	
 	/**
-     * Background Async Task to Create new product
+     * Background Async Task to Delete new product
      * */
     class DeleteWine extends AsyncTask<String, String, String> {
  
@@ -163,7 +190,7 @@ public class ShowWineActivity extends Activity {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(ShowWineActivity.this);
-            pDialog.setMessage("Creating Wine..");
+            pDialog.setMessage("Deleting Wine..");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -173,15 +200,26 @@ public class ShowWineActivity extends Activity {
          * Deleting product
          * */
         protected String doInBackground(String... args) {
-            String name = deleteName;            
-            
+            String id = deleteId;            
+            Log.d("<<<>>>>", ("http://android.montenichols.com/wine/delete/" + deleteId));
             // Building Parameters
-            List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("name", name));
-                       
+            // List<NameValuePair> params = new ArrayList<NameValuePair>();
+            //params.add(new BasicNameValuePair("delete", deleteId));
+            try {
+            	
+            URL url = new URL("http://android.montenichols.com/wine/delete/" + deleteId);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("GET");
+			connection.setDoInput(true);
+			connection.setConnectTimeout(36000);
+			
+			// Make a connection
+			connection.connect();
+            
+            
             // getting JSON Object
             // Note that create product url accepts POST method
-            jsonParser.makeHttpPost(url_delete_wine, params);
+            //jsonParser.makeHttpGet(url_delete_wine + "/" + deleteId);
  
             // check log cat fro response
             //Log.d("Create Response", json.toString());
@@ -203,7 +241,10 @@ public class ShowWineActivity extends Activity {
             //} catch (JSONException e) {
                 //e.printStackTrace();
             //}
- 
+            } catch (IOException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
             return null;
         }
  

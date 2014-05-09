@@ -114,6 +114,7 @@ public class MainActivity extends Activity {
 			View view = inflater.inflate(R.layout.wine_index, parent, false);
 
 			Wine Wine = getItem(position);
+			final String id = Integer.toString(Wine.id);
 			final String name = Wine.name;
 			final String varietal= Wine.varietal;
 			final String region = Wine.region;
@@ -137,6 +138,7 @@ public class MainActivity extends Activity {
 		    button.setOnClickListener(new View.OnClickListener() {
 		        public void onClick(View view) {
 		        	Intent i = new Intent(getApplicationContext(), ShowWineActivity.class);
+		        	i.putExtra("id", id);
 		        	i.putExtra("name", name);
 		        	i.putExtra("varietal", varietal);
 		        	i.putExtra("region", region);
