@@ -1,0 +1,50 @@
+package edu.tableservice;
+
+import java.util.ArrayList;
+
+import edu.tableservice.data.Check;
+import edu.tableservice.data.DataStore;
+import edu.udallas.tableservice.R;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
+
+public class SignatureActivity extends Activity {
+	
+	SignaturePadView mSignatureView;
+	View mDoneButton;
+	
+	@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_pay_check);
+        
+        // Find the ListView, create an adapter that reads our list of checks,
+        // and connect the two
+        mSignatureView = (SignaturePadView)findViewById(R.id.signature);
+        mDoneButton = findViewById(R.id.done_button);
+        
+        
+        mListView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                    long id) {
+            	ArrayList<Check> checks = DataStore.CHECKS;
+                String pos = Integer.toString(position);
+                //Toast.makeText(getBaseContext(), pos, Toast.LENGTH_SHORT).show();
+                
+                String subtotal = Double.toString(checks.get(position).getSubtotal().getRawValue());
+                
+                Intent i = new Intent(getApplicationContext(), PayCheckActivity.class);
+	        	i.putExtra("position", pos);
+	        	i.putExtra("subtotal", subtotal);//Double.toString(check.get(position).getSubtotalDouble()));
+	        	startActivity(i);
+            }			
+        });
+                
+    }
+}

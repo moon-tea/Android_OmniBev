@@ -1,0 +1,80 @@
+package edu.tableservice;
+
+import java.util.ArrayList;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Point;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.View;
+
+public class SignaturePadView extends View {
+	
+	// A "Stroke" is a collection of points drawn by the user as she puts
+	// her finger down, moves, and then lifts her finger up
+	private class Stroke {
+		private ArrayList<Point> mPoints = new ArrayList<Point>();
+		Stroke(ArrayList<Point> path) {
+			mPoints = path;
+		}		
+	}
+	
+	// A list of all the Strokes the user has drawn with their finger
+	private ArrayList<Stroke> mStrokes = new ArrayList<SignaturePadView.Stroke>();
+	private ArrayList<Point> path = new ArrayList<Point>();
+	
+	
+	public SignaturePadView(Context context) {
+		super(context);
+	}
+	
+	public SignaturePadView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+	}
+	
+	public SignaturePadView(Context context, AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
+	}
+	
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		// TODO Implement this method
+		super.onTouchEvent(event);
+		float eventX = event.getX();
+	    float eventY = event.getY();
+	    Point p = new Point();
+	    p.x = (int) eventX;
+	    p.y = (int) eventY;
+	    
+	    
+	    switch (event.getAction()) {
+	    	case MotionEvent.ACTION_DOWN:
+		    	path = new ArrayList<Point>();
+		    	path.add(p);
+		    	return true;
+	    	case MotionEvent.ACTION_MOVE:
+				path.add(p);
+				return true;
+	    	case MotionEvent.ACTION_UP:
+				path.add(p);
+				mStrokes.add(new Stroke(path));
+				onDraw();
+				return true;
+			default:
+				return false;
+		}
+	}
+	
+	@Override
+	protected void onDraw(Canvas canvas) {
+		// TODO implement this
+		super.onDraw(canvas);
+		foreach(mStrokes : Stroke stroke)
+		{
+			
+		}
+	}
+
+}

@@ -1,0 +1,116 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|left"
+        android:orientation="vertical">    
+ 
+    <!-- Button Update Wine -->
+    <Button android:id="@+id/btnCreateWine"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Update Wine"/>
+    
+    <!-- Input Name -->
+    <EditText android:id="@+id/input_wine_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:layout_marginBottom="15dip"
+        android:hint="Name"
+        android:singleLine="true"/>    
+ 
+    <!-- Input img -->
+    <EditText android:id="@+id/input_wine_img"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:layout_marginBottom="15dip"
+        android:singleLine="true"
+        android:hint="img/path"
+        android:gravity="top"/>
+    
+    <!-- Input varietal -->
+    <EditText android:id="@+id/input_wine_varietal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:layout_marginBottom="15dip"
+        android:singleLine="true"
+        android:hint="merlot"
+        android:gravity="top"/>
+    
+    <!-- Input region -->
+    <EditText android:id="@+id/input_wine_region"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:layout_marginBottom="15dip"
+        android:singleLine="true"
+        android:hint="texas"
+        android:gravity="top"/>
+    
+    <!-- Input vintage -->
+    <EditText android:id="@+id/input_wine_vintage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:layout_marginBottom="15dip"
+        android:singleLine="true"
+        android:hint="2011"
+        android:gravity="top"/>
+    
+    <!-- input profile -->
+    <EditText android:id="@+id/input_wine_profile"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:layout_marginBottom="15dip"
+         android:singleLine="true"
+        android:hint="plum, cherry"
+        android:gravity="top"/>
+    
+    <!-- input color -->
+    <EditText android:id="@+id/input_wine_color"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:layout_marginBottom="15dip"
+        android:singleLine="true"
+        android:hint="burgundy"
+        android:gravity="top"/>
+    
+    <!-- Input alcohol_content -->
+    <EditText android:id="@+id/input_wine_alcohol_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:layout_marginBottom="15dip"
+        android:singleLine="true"
+        android:hint="14.5%"
+        android:gravity="top"/>
+    
+    <!-- Input rating -->
+    <EditText android:id="@+id/input_wine_rating"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:layout_marginBottom="15dip"
+        android:singleLine="true"
+        android:hint="3"
+        android:gravity="top"/>   
+ 
+    <!-- Button Delete Wine -->
+
+    <Button
+        android:id="@+id/btnDeleteWine"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"        
+        android:text="Delete This Wine?" />
+ 
+</LinearLayout>
+</ScrollView>

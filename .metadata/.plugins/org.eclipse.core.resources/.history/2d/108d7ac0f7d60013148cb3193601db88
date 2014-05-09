@@ -1,0 +1,108 @@
+package edu.tableservice;
+
+import java.util.ArrayList;
+
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Point;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.View;
+
+public class SignaturePadView extends View {
+	
+	// A "Stroke" is a collection of points drawn by the user as she puts
+	// her finger down, moves, and then lifts her finger up
+	private class Stroke {
+		public ArrayList<Point> mPoints = new ArrayList<Point>();
+		Stroke(ArrayList<Point> path) {
+			mPoints = path;
+		}		
+	}
+	
+	// A list of all the Strokes the user has drawn with their finger
+	private ArrayList<Stroke> mStrokes = new ArrayList<SignaturePadView.Stroke>();
+	private ArrayList<Point> path = new ArrayList<Point>();
+	
+	
+	public SignaturePadView(Context context) {
+		super(context);
+	}
+	
+	public SignaturePadView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+	}
+	
+	public SignaturePadView(Context context, AttributeSet attrs, int defStyleAttr) {
+		super(context, attrs, defStyleAttr);
+	}
+	
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		// TODO Implement this method
+		super.onTouchEvent(event);
+		float eventX = event.getX();
+	    float eventY = event.getY();
+	    Point p = new Point();
+	    p.x = (int) eventX;
+	    p.y = (int) eventY;
+	    
+	    
+	    switch (event.getAction()) {
+	    	case MotionEvent.ACTION_DOWN:
+		    	path = new ArrayList<Point>();
+		    	path.add(p);
+		    	invalidate();
+		    	return true;
+	    	case MotionEvent.ACTION_MOVE:
+				path.add(p);
+				invalidate();
+				return true;
+	    	case MotionEvent.ACTION_UP:
+				path.add(p);
+				mStrokes.add(new Stroke(path));
+				break;
+			default:
+				return false;
+		}
+	    invalidate();
+	    return true;
+	}
+	
+	@Override
+	protected void onDraw(Canvas canvas) {
+		// TODO implement this
+		super.onDraw(canvas);
+		//Point startPoint = new Point();
+		//Point endPoint = new Point();
+		
+		Paint blue = new Paint();
+	    blue.setColor(Color.BLUE);
+	    
+	    Path path = new Path();
+		
+		int counter = 0;
+		for (Stroke stroke : mStrokes) {
+			for (Point point : stroke.mPoints) {
+				if( counter > 0)
+				{
+					path.moveTo(point.x, point.y);
+					//canvas.drawLine(startPoint.x, startPoint.y, point.x, point.y, blue);
+				}
+				else
+				{
+					path.lineTo(point.x, point.y);
+				}
+				counter++;
+				//startPoint.x = point.x;
+				//startPoint.y = point.y;				
+			}
+		}
+		canvas.drawPath(path, blue);
+	}
+
+}

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Table Service</string>
+    <string name="action_settings">Settings</string>
+    <string name="hamburger_hot_dog_root_beer_coke_hamburger_cheeseburger_">Hamburger. Hot Dog. Root beer. Coke. Hamburger. Cheeseburger.</string>
+    <string name="table_5">Table 5</string>
+
+</resources>
